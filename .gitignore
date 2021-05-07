@@ -1,0 +1,20 @@
+*.log
+.env
+npm-debug.*
+.DS_Store
+.vscode
+yarn-error.log
+package-lock.json
+debug.log
+coverage
+.nyc_output
+# Serverless directories
+.serverless
+# package directories
+node_modules
+jspm_packages
+.idea
+/logs/*.log
+mysql-data
+redis-data
+public/*
