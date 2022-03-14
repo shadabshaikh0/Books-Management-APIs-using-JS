@@ -17,6 +17,8 @@ import constants from './constants'
 import CustomError from './infra/error'
 import errorHandlerMiddleware from './interfaces/http/middlewares/error_handler'
 import validatorMiddleware from './interfaces/http/middlewares/validators'
+import auth from './interfaces/http/auth'
+
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY
@@ -54,7 +56,8 @@ container.register({
 // Infra
 container.register({
   response: asFunction(response).singleton(),
-  CustomError: asFunction(CustomError).singleton()
+  CustomError: asFunction(CustomError).singleton(),
+  auth: asFunction(auth).singleton()
 })
 
 container.loadModules(['infra/repositories/**/*.js'], {
