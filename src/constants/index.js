@@ -8,7 +8,7 @@ const environments = {
 
 const PAGINATION_CONSTANT = {
   LIMIT: 10,
-  OFFSET: 0
+  OFFSET: 1
 }
 
 module.exports = {

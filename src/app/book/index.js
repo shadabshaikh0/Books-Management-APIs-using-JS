@@ -2,7 +2,8 @@ import { define } from '../../containerHelper'
 import uuid from 'uuid'
 
 module.exports = define('bookService', ({
-  bookRepository
+  bookRepository,
+  constants: { PAGINATION_CONSTANT }
 }) => {
   const createBook = async (data) => {
     data.isActive = true
@@ -17,8 +18,12 @@ module.exports = define('bookService', ({
     return bookRepository.softDelete(id)
   }
 
-  const getAllBooks = async () => {
-    return bookRepository.getAll()
+  const getAllBooks = async (page, size) => {
+    if(!page || !size) {
+      page = PAGINATION_CONSTANT.OFFSET
+      size = PAGINATION_CONSTANT.LIMIT
+    }
+    return bookRepository.getAll(page, size)
   }
 
   const findBook = async (id) => {

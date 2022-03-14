@@ -16,8 +16,8 @@ module.exports = define('bookRepository', ({}) => {
     return res
   }
 
-  const getAll = async () => {
-    const res = await bookModel.find({ isActive: true })
+  const getAll = async (page, size) => {
+    const res = await bookModel.find({ isActive: true }).skip((page-1)*size).limit(size)
     return res
   }
 

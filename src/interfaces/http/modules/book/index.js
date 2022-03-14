@@ -38,7 +38,7 @@ module.exports = () => {
 
   router.get('/', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
-      const result = (req?.query?.bookUuid) ? await bookService.findBook(req.query.bookUuid): await bookService.getAllBooks()
+      const result = (req?.query?.bookUuid) ? await bookService.findBook(req.query.bookUuid): await bookService.getAllBooks(req.query.page, req.query.size)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
