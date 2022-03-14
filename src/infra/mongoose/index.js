@@ -1,12 +1,8 @@
 import mongoose from 'mongoose'
-import { basename as _basename, join } from 'path'
-import { readdirSync } from 'fs'
-const basename = _basename(__filename)
-module.exports = ({ config, basePath }) => {
-    const db = {}
-    db.models = {}  
+module.exports = () => {
     try {
-        mongoose.connect('mongodb://localhost:27017/test');
+        mongoose.connect('mongodb+srv://shadabshaikh0:D9x8yG2gDh5Gamc@cluster0.twjgw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+        console.log("Database connected successfully");
     } catch(err) {
-    }
+    }    
 }

@@ -24,5 +24,9 @@ export const errorCodes = {
   RESOURCE_FORBIDDEN: {
     code: 'access_forbidden',
     status: FORBIDDEN
+  },
+  INVALID_REQUEST: {
+    code: 'Invalid Request',
+    status: BAD_REQUEST
   }
 }

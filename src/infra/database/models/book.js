@@ -1,7 +1,12 @@
 import mongoose from 'mongoose'
 module.exports = () => {
     const bookSchema = new mongoose.Schema({
-        name: String
+        uuid: String,
+        name: String,
+        releaseDate: Number,
+        authorName: String,
+        isActive: Boolean
     })
-    return mongoose.model('book', bookSchema);
+    const bookModel = mongoose.model('book', bookSchema);
+    return bookModel;
 }

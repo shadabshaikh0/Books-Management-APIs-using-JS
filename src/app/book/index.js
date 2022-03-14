@@ -1,20 +1,40 @@
 import { define } from '../../containerHelper'
+import uuid from 'uuid'
+
 module.exports = define('bookService', ({
   bookRepository
 }) => {
   const createBook = async (data) => {
+    data.isActive = true
+    data.uuid = uuid()
     return bookRepository.create(data)
   }
-  const findBook = async (searchArg) => {
-    return bookRepository.findOne(searchArg)
+  const updateBook = async (data, id) => {
+    return bookRepository.update(data, id)
   }
-  const findBooks = async (searchArg) => {
-    return bookRepository.findAll(searchArg)
+
+  const deleteBook = async(id) => {
+    return bookRepository.softDelete(id)
+  }
+
+  const getAllBooks = async () => {
+    return bookRepository.getAll()
+  }
+
+  const findBook = async (id) => {
+    return bookRepository.find(id)
+  }
+
+  const deleteAllBooks = () => {
+    return bookRepository.softDeleteAll()
   }
 
   return {
     createBook,
+    updateBook,
+    deleteBook,
+    getAllBooks,
     findBook,
-    findBooks
+    deleteAllBooks
   }
 })

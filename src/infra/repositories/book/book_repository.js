@@ -1,35 +1,42 @@
 import { define } from '../../../containerHelper'
 import book from '../../database/models/book'
 module.exports = define('bookRepository', ({}) => {
-  const bookModel = book
-
-  const createbook = bookEntity => bookModel.create(bookEntity)
+  const bookModel = book()
+  const create = bookEntity => {
+    bookModel.create(bookEntity)  
+  }
 
   const update = async (bookEntity, id) => {
-    const res = await bookModel.update(bookEntity, {
-      where: {
-        id
-      }
-    })
+    const res = await bookModel.findOneAndUpdate({ uuid: id }, bookEntity)
     return res
   }
-  const find = async searchArg => {
-    const bookDetails = await bookModel.findOne({
-      where: searchArg
-    })
-    return bookDetails
+  
+  const softDelete = async id  => {
+    const res = await bookModel.findOneAndUpdate({ uuid:id }, { isActive: false })
+    return res
   }
-  const findAll = async searchArg => {
-    const bookDetails = await bookModel.findAll({
-      where: searchArg
-    })
-    return bookDetails
+
+  const getAll = async () => {
+    const res = await bookModel.find({ isActive: true })
+    return res
+  }
+
+  const find = async id => {
+    const res = await bookModel.findOne({ uuid: id })
+    return res
+  }
+
+  const softDeleteAll = async () => {
+    const res = await bookModel.updateMany( {}, { isActive: false })
+    return res
   }
 
   return {
-    createbook,
+    create,
     update,
+    softDelete,
+    getAll,
     find,
-    findAll
+    softDeleteAll
   }
 })
