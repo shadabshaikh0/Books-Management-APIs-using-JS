@@ -5,7 +5,6 @@ module.exports = ({
   return {
     start: () =>
       Promise.resolve()
-        .then(database.sequelize.authenticate())
         .then(server.start)
   }
 }

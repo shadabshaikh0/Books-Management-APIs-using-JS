@@ -1,10 +1,9 @@
 'use strict'
-import sequelize from 'src/infra/sequelize'
+import mongoose from 'src/infra/mongoose'
 
 module.exports = ({ config }) => {
   if (!config.db) {
     return false
-  }
-
-  return sequelize({ config: config.db, basePath: __dirname })
+  }  
+  return mongoose({ config:config.db })
 }

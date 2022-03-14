@@ -37,8 +37,7 @@ module.exports = ({
     .use(containerMiddleware)
 
   apiRouter.use(validatorMiddleware())
-  apiRouter.use(`/api/V1/users`, controller('user', 'index'))
-  apiRouter.use(`/api/V1/notifier`, controller('notifier', 'index'))
+  apiRouter.use(`/api/V1/book`, controller('book', 'index'))
 
   router.use(`/`, apiRouter)
   router.use(errorHandlerMiddleware)

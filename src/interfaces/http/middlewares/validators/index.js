@@ -7,10 +7,7 @@ module.exports = ({
   CustomError,
   constants: { INVALID_REQUEST, DEVELOPMENT },
   config
-}) => (useJoiError = false) => {
-  // useJoiError determines if we should respond with the base Joi error
-  // boolean: defaults to false
-  // const _useJoiError = isBoolean(useJoiError) && useJoiError
+}) => () => {
 
   // enabled HTTP methods for request data validation
   const _supportedMethods = ['post', 'put', 'get', 'patch']

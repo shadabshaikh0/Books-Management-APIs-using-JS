@@ -7,11 +7,11 @@ module.exports = () => {
   const {
     response: { Success }
   } = container.cradle
-  const { userService } = container.cradle
+  const { bookService } = container.cradle
 
   router.post('/', async (req, res, next) => {
     try {
-      const result = await userService.createUser(req.body)
+      const result = await bookService.createBook(req.body)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
