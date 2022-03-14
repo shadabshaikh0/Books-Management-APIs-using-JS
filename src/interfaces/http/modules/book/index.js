@@ -7,9 +7,9 @@ module.exports = () => {
   const {
     response: { Success }
   } = container.cradle
-  const { bookService, auth } = container.cradle
+  const { bookService, auth, authorizeMiddleware } = container.cradle
 
-  router.post('/', auth.authenticate(), async (req, res, next) => {
+  router.post('/', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
       const result = await bookService.createBook(req.body)
       res.status(Status.OK).json(await Success(result))
@@ -18,7 +18,7 @@ module.exports = () => {
     }
   })
 
-  router.patch('/:bookUuid', auth.authenticate(), async (req, res, next) => {
+  router.patch('/:bookUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
       const result = await bookService.updateBook(req.body, req.params.bookUuid)
       res.status(Status.OK).json(await Success(result))
@@ -27,7 +27,7 @@ module.exports = () => {
     }
   })
 
-  router.delete('/:bookUuid', auth.authenticate(), async (req, res, next) => {
+  router.delete('/:bookUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
       const result = await bookService.deleteBook(req.params.bookUuid)
       res.status(Status.OK).json(await Success(result))
@@ -36,7 +36,7 @@ module.exports = () => {
     }
   })
 
-  router.get('/', auth.authenticate(), async (req, res, next) => {
+  router.get('/', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
       const result = (req?.query?.bookUuid) ? await bookService.findBook(req.query.bookUuid): await bookService.getAllBooks()
       res.status(Status.OK).json(await Success(result))
@@ -45,7 +45,7 @@ module.exports = () => {
     }
   })
 
-  router.delete('/', auth.authenticate(), async (req, res, next) => {
+  router.delete('/', auth.authenticate(), authorizeMiddleware({ idAdmin: true }), async (req, res, next) => {
     try {
       const result = await bookService.deleteAllBooks()
       res.status(Status.OK).json(await Success(result))

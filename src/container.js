@@ -17,6 +17,7 @@ import constants from './constants'
 import CustomError from './infra/error'
 import errorHandlerMiddleware from './interfaces/http/middlewares/error_handler'
 import validatorMiddleware from './interfaces/http/middlewares/validators'
+import authorizeHandlerMiddleware from './interfaces/http/middlewares/authorize_handler'
 import auth from './interfaces/http/auth'
 
 
@@ -42,7 +43,8 @@ container
 container
   .register({
     containerMiddleware: asValue(scopePerRequest(container)),
-    errorHandlerMiddleware: asFunction(errorHandlerMiddleware)
+    errorHandlerMiddleware: asFunction(errorHandlerMiddleware),
+    authorizeMiddleware: asFunction(authorizeHandlerMiddleware).singleton()
   })
   .register({
     validatorMiddleware: asFunction(validatorMiddleware).singleton()
