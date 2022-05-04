@@ -7,29 +7,29 @@ module.exports = () => {
   const {
     response: { Success }
   } = container.cradle
-  const { bookService, auth, authorizeMiddleware } = container.cradle
+  const { userService, auth, authorizeMiddleware } = container.cradle
 
   router.post('/', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
-      const result = await bookService.createBook(req.body)
+      const result = await userService.createUser(req.body)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
     }
   })
 
-  router.patch('/:bookUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
+  router.patch('/:userUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
-      const result = await bookService.updateBook(req.body, req.params.bookUuid)
+      const result = await userService.updateUser(req.body, req.params.userUuid)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
     }
   })
 
-  router.delete('/:bookUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
+  router.delete('/:userUuid', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
-      const result = await bookService.deleteBook(req.params.bookUuid)
+      const result = await userService.deleteUser(req.params.userUuid)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
@@ -38,7 +38,7 @@ module.exports = () => {
 
   router.get('/', auth.authenticate(), authorizeMiddleware({ idAdmin: false }), async (req, res, next) => {
     try {
-      const result = (req?.query?.bookUuid) ? await bookService.findBook(req.query.bookUuid): await bookService.getAllBooks(req.query.page, req.query.size)
+      const result = (req?.query?.userUuid) ? await userService.findUser(req.query.userUuid): await userService.getAllUsers(req.query.page, req.query.size)
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
@@ -47,7 +47,7 @@ module.exports = () => {
 
   router.delete('/', auth.authenticate(), authorizeMiddleware({ idAdmin: true }), async (req, res, next) => {
     try {
-      const result = await bookService.deleteAllBooks()
+      const result = await userService.deleteAllUsers()
       res.status(Status.OK).json(await Success(result))
     } catch (e) {
       next(e)
